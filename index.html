@@ -3,21 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tic Tact Toe</title>
+  <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="game-board" id="game-board">
-    <div class="cell" data-cell></div>
-    <div class="cell" data-cell></div>
-    <div class="cell" data-cell></div>
-    <div class="cell" data-cell></div>
-    <div class="cell" data-cell></div>
-    <div class="cell" data-cell></div>
-    <div class="cell" data-cell></div>
-    <div class="cell" data-cell></div>
-    <div class="cell" data-cell></div>
+  <div class="container">
+    <h1>Tic Tac Toe</h1>
+    <div class="player-name" id="playerOne">Player One: </div><div class="player-score" id="playerOneScore">0</div>
+    <div class="player-name" id="playerTwo">Player Two: </div><div class="player-score" id="playerTwoScore">0</div>
+    <button class="btn new-game" id="startNewGame">Start New Game</button>
+    <button class="btn reset-scores" id="resetScores">Reset Scores</button>
+    <div class="game-board" id="game-board">
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+    </div>
   </div>
 </body>
 </html>
