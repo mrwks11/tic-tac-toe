@@ -9,22 +9,22 @@ const crossPlayerMarker = 'X';
 const circlePlayerMarker = 'O';
 
 // Player names
-let crossPlayerName = 'Cross Player';
-let circlePlayerName = 'Circle Player';
+let crossPlayerName = `Player ${crossPlayerMarker}`;
+let circlePlayerName = `Player ${circlePlayerMarker}`;
 // Event: edit cross player
 const crossPlayerNameUI = document.getElementById('crossPlayerName');
 crossPlayerNameUI.addEventListener('click', (e) => {
-  crossPlayerName = prompt('What is your name?', 'Cross Player');
+  crossPlayerName = prompt('What is your name?', `${crossPlayerName}`);
   return crossPlayerName === null
-    ? (crossPlayerNameUI.textContent = `Cross Player`)
+    ? (crossPlayerNameUI.textContent = `Player "X"`)
     : (crossPlayerNameUI.textContent = `${crossPlayerName}`);
 });
 // Event: edit circle player
 const circlePlayerNameUI = document.getElementById('circlePlayerName');
 circlePlayerNameUI.addEventListener('click', (e) => {
-  circlePlayerName = prompt('What is your name?', 'Circle Player');
-  return newCirclePlayerName === null
-    ? (circlePlayerNameUI.textContent = `Circle Player`)
+  circlePlayerName = prompt('What is your name?', `${circlePlayerName}`);
+  return circlePlayerName === null
+    ? (circlePlayerNameUI.textContent = `Player "O"`)
     : (circlePlayerNameUI.textContent = `${circlePlayerName}`);
 });
 
