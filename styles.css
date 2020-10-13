@@ -17,17 +17,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* GAME */
-
-.player-name {
-  display: inline-block;
-  font-size: 20px;
-}
-
-.player-score {
-  display: inline-block;
+  text-align: center;
 }
 
 .btn {
@@ -36,13 +26,19 @@ body {
   padding: 5px 10px;
 }
 
+/* GAME */
+
+.player-name, .player-score {
+  font-size: 20px;
+}
+
 .game-board {
   font-size: 100px;
   font-weight: normal;
   display: grid;
   align-content: center;
   justify-content: center;
-  margin-top: 60px;
+  margin: 50px 0;
   height: 80%;
   width: 100%;
   grid-template-rows: repeat(3, auto);
@@ -53,10 +49,23 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 150px;
-  width: 150px;
+  height: 120px;
+  width: 120px;
   border: 3px solid black;
   cursor: pointer;
+}
+
+.cell.X,
+.cell.O {
+  cursor: not-allowed;
+}
+
+.cell.X {
+  color: red;
+}
+
+.cell.O {
+  color: blue;
 }
 
 .cell:nth-child(1),
@@ -81,11 +90,6 @@ body {
 .cell:nth-child(4),
 .cell:nth-child(7) {
   border-left: none;
-}
-
-.cell.X,
-.cell.O {
-  cursor: not-allowed;
 }
 
 .winner-screen {
