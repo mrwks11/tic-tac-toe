@@ -1,17 +1,23 @@
-// Global variables
+// GLOBAL VARIABLES
 const gameBoard = document.getElementById('game-board');
 const gameCells = document.querySelectorAll('[data-cell]');
-let gameRound = 0;
-let currentBoard = ['', '', '', '', '', '', '', '', ''];
+let gameRound;
+let currentBoard;
+let currentPlayerMarker;
 
-// Player markers
+// UI BUTTON: START NEW GAME
+const startGame = document.getElementById('startNewGame');
+startGame.addEventListener('click', (e) => {
+  startNewGame();
+  resetScore();
+});
+
+// CROSS PLAYER
 const crossPlayerMarker = 'X';
-const circlePlayerMarker = 'O';
-
-// Player names
 let crossPlayerName = `Player ${crossPlayerMarker}`;
-let circlePlayerName = `Player ${circlePlayerMarker}`;
-// Event: edit cross player
+const crossPlayerScoreUI = document.getElementById('crossPlayerScore');
+let crossPlayerScore = 0;
+// Edit cross player name
 const crossPlayerNameUI = document.getElementById('crossPlayerName');
 crossPlayerNameUI.addEventListener('click', (e) => {
   crossPlayerName = prompt('What is your name?', `${crossPlayerName}`);
@@ -19,7 +25,13 @@ crossPlayerNameUI.addEventListener('click', (e) => {
     ? (crossPlayerNameUI.textContent = `Player "X"`)
     : (crossPlayerNameUI.textContent = `${crossPlayerName}`);
 });
-// Event: edit circle player
+
+// CIRCLE PLAYER
+const circlePlayerMarker = 'O';
+let circlePlayerName = `Player ${circlePlayerMarker}`;
+const circlePlayerScoreUI = document.getElementById('circlePlayerScore');
+let circlePlayerScore = 0;
+// Edit circle player name
 const circlePlayerNameUI = document.getElementById('circlePlayerName');
 circlePlayerNameUI.addEventListener('click', (e) => {
   circlePlayerName = prompt('What is your name?', `${circlePlayerName}`);
@@ -28,67 +40,13 @@ circlePlayerNameUI.addEventListener('click', (e) => {
     : (circlePlayerNameUI.textContent = `${circlePlayerName}`);
 });
 
-// Player Scores
-const crossPlayerScoreUI = document.getElementById('crossPlayerScore');
-let crossPlayerScore = 0;
-const circlePlayerScoreUI = document.getElementById('circlePlayerScore');
-let circlePlayerScore = 0;
+startNewGame();
 
-let currentPlayerMarker = crossPlayerMarker;
-
-// Game buttons
-// Event: start new game
-const startGame = document.getElementById('startNewGame');
-startGame.addEventListener('click', (e) => {
-  startNewGame();
-});
-// Event: reset scores
-const resetScores = document.getElementById('resetScores');
-resetScores.addEventListener('click', (e) => {
-  crossPlayerScore = 0;
-  crossPlayerScoreUI.textContent = `${crossPlayerScore}`;
-  circlePlayerScore = 0;
-  circlePlayerScoreUI.textContent = `${circlePlayerScore}`;
-});
-
-// Start a new game
-function startNewGame() {
-  // Remove winnerScreen
-  const winnerScreen = document.querySelector('.winner-screen');
-  if (winnerScreen) {
-    winnerScreen.remove();
-  }
-  // Reset gameBoard
-  for (let i = 0; i < gameCells.length; i++) {
-    gameCells[i].classList.remove('X', 'O');
-    gameCells[i].textContent = '';
-  }
-  currentBoard = ['', '', '', '', '', '', '', '', ''];
-  currentPlayerMarker = crossPlayerMarker;
-  gameRound = 0;
-}
-
-// Winning combinations
-const winningCombinations = [
-  // Horizontal
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  // Vertical
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  // Diagonal
-  [0, 4, 8],
-  [2, 4, 6],
-];
-
-// Event: when cell is clicked on gameBoard
+// CLICK GAMEBOARD
 gameBoard.addEventListener('click', (e) => {
   clickAction(e.target);
 });
-
-// Action when cell is clicked
+// Action cell clicked
 function clickAction(target) {
   if (
     target.classList.contains('O') ||
@@ -103,7 +61,7 @@ function clickAction(target) {
   }
 }
 
-// Update gameBoard
+// UPDATE GAMEBOARD
 function updateGameBoard(target) {
   // Update HTML & UI
   target.classList.add(`${currentPlayerMarker}`);
@@ -122,8 +80,20 @@ function updateGameBoard(target) {
   }
 }
 
-// Check if there is a winner
+// CHECK WINNER
 function checkWinner() {
+  // Winning combinations
+  const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  // Check
   if (gameRound < 9) {
     for (let i = 0; i < winningCombinations.length; i++) {
       if (
@@ -143,14 +113,14 @@ function checkWinner() {
   }
 }
 
-// Change the current player
+// CHANGE CURRENT PLAYER
 function changePlayer() {
   return currentPlayerMarker === crossPlayerMarker
     ? (currentPlayerMarker = circlePlayerMarker)
     : (currentPlayerMarker = crossPlayerMarker);
 }
 
-// Display winner screen
+// DISPLAY WINNER SCREEN
 function showWinnerScreen(endGame) {
   const div = document.createElement('div');
   const container = document.querySelector('.container');
@@ -180,7 +150,7 @@ function showWinnerScreen(endGame) {
   button.addEventListener('click', (e) => startNewGame());
 }
 
-// Update scores
+// UPDATE SCORES
 function updateScores() {
   if (currentPlayerMarker === crossPlayerMarker) {
     crossPlayerScore++;
@@ -189,4 +159,30 @@ function updateScores() {
     circlePlayerScore++;
     circlePlayerScoreUI.textContent = `${circlePlayerScore}`;
   }
+}
+
+// START NEW GAME
+function startNewGame() {
+  // Reset player
+  currentPlayerMarker = crossPlayerMarker;
+  // Reset gameBoard
+  for (let i = 0; i < gameCells.length; i++) {
+    gameCells[i].classList.remove('X', 'O');
+    gameCells[i].textContent = '';
+  }
+  currentBoard = ['', '', '', '', '', '', '', '', ''];
+  gameRound = 0;
+  // Remove winnerScreen
+  const winnerScreen = document.querySelector('.winner-screen');
+  if (winnerScreen) {
+    winnerScreen.remove();
+  }
+}
+
+// RESET SCORES
+function resetScore() {
+  crossPlayerScore = 0;
+  crossPlayerScoreUI.textContent = `${crossPlayerScore}`;
+  circlePlayerScore = 0;
+  circlePlayerScoreUI.textContent = `${circlePlayerScore}`;
 }
